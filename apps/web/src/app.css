@@ -207,3 +207,194 @@ button {
   outline: 2px dashed var(--foreground);
   outline-offset: -2px;
 }
+
+/* ============================================================================
+   Viewer Toolbar
+   ============================================================================ */
+
+.vt-container {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+}
+
+.vt-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.vt-divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--border);
+  margin: 0 4px;
+}
+
+.vt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-family: var(--font-sans);
+  color: var(--muted-foreground);
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.vt-btn:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.vt-btn--active {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.vt-btn--sm {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+}
+
+/* Popover */
+.vt-popover-wrapper {
+  position: relative;
+}
+
+.vt-popover {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  animation: vt-popover-in 0.12s ease-out;
+}
+
+@keyframes vt-popover-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.vt-popover-narrow {
+  width: 140px;
+  padding: 4px;
+}
+
+.vt-popover-plans {
+  width: 220px;
+}
+
+.vt-popover-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.1s;
+  text-align: left;
+}
+
+.vt-popover-item:hover {
+  background-color: var(--muted);
+}
+
+.vt-popover-item--active {
+  background-color: var(--accent);
+}
+
+/* Plan view popover */
+.vt-popover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.vt-popover-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.vt-popover-list {
+  padding: 6px 0;
+  max-height: 256px;
+  overflow-y: auto;
+}
+
+.vt-plan-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  background: transparent;
+  border: none;
+  transition: background-color 0.1s;
+  text-align: left;
+}
+
+.vt-plan-item:hover {
+  background-color: var(--muted);
+}
+
+.vt-plan-item--active {
+  background-color: var(--accent);
+}
+
+.vt-plan-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  flex-shrink: 0;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.vt-plan-badge--active {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+.vt-plan-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

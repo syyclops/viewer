@@ -26,3 +26,9 @@ bun.lockb
 
 # Debug
 *.log
+
+# Terraform
+infra/.terraform/
+infra/*.tfstate
+infra/*.tfstate.backup
+infra/.terraform.lock.hcl
