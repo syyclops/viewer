@@ -18,9 +18,13 @@ const CAMERA_MODES: { mode: CameraMode; label: string; icon: string }[] = [
 function OrbitIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 12c-3.87 0-7 1.34-7 3s3.13 3 7 3 7-1.34 7-3" />
-      <path d="M5 15v-3c0-1.66 3.13-3 7-3s7 1.34 7 3v3" />
-      <circle cx="12" cy="8" r="2" />
+      {/* Horizontal orbit ring */}
+      <ellipse cx="12" cy="14" rx="9" ry="3" />
+      {/* Vertical orbit arc with arrow */}
+      <path d="M5 12a7 7 0 0 1 14 0" />
+      <path d="M16 9l3 3-3 3" />
+      {/* Center cube */}
+      <rect x="10" y="10" width="4" height="4" rx="0.5" fill="currentColor" stroke="none" />
     </svg>
   );
 }
@@ -70,6 +74,15 @@ function CloseIcon() {
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M18 6 6 18" />
       <path d="m6 6 12 12" />
+    </svg>
+  );
+}
+
+function ResetIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
     </svg>
   );
 }
@@ -223,7 +236,7 @@ function PlanViewSelector({
 // ============================================================================
 
 export function ViewerToolbar() {
-  const { camera, planViews } = useViewer();
+  const { camera, planViews, unloadAllModels, loadedModels } = useViewer();
 
   const handleCameraModeChange = (mode: CameraMode) => {
     camera?.setMode(mode);
@@ -236,6 +249,14 @@ export function ViewerToolbar() {
       planViews?.open(planId);
     }
   };
+
+  const handleReset = async () => {
+    await unloadAllModels();
+  };
+
+  const hasModels = loadedModels.size > 0;
+
+  if (!hasModels) return null;
 
   return (
     <div className="vt-container">
@@ -253,6 +274,19 @@ export function ViewerToolbar() {
               activePlanId={planViews.activePlanId}
               onPlanSelect={handlePlanSelect}
             />
+          </>
+        )}
+
+        {hasModels && (
+          <>
+            <div className="vt-divider" />
+            <button
+              className="vt-btn"
+              onClick={handleReset}
+              title="Reset — remove all models"
+            >
+              <ResetIcon />
+            </button>
           </>
         )}
       </div>
